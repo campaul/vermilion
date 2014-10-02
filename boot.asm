@@ -17,8 +17,26 @@ call disk_load
 mov ax, 02h
 int 0x10
 
+; Print loading message
+mov bx, BOOT_MESSAGE
+call print_string
+
 ; Jump to OS
 jmp 0x9000
+
+print_string:
+    pusha
+    .loop:
+        mov al, [bx]
+        cmp al, 0
+        je .done
+        mov ah, 0x0e
+        int 0x10
+        add bx, 1
+        jmp .loop
+    .done:
+        popa
+        ret
 
 disk_load:
     push dx
@@ -36,19 +54,12 @@ disk_load:
 
 BOOT_DRIVE: db 0
 
+BOOT_MESSAGE:
+    db 'Loading Vermilion...', 0Dh, 0Ah, 0
+
 times 510-($-$$) db 0
 dw 0xaa55
 
-; Print loading message
-mov bx, BOOT_MESSAGE
-add bx, 0x1200
-call print_string
-
 jmp $
-
-%include "io.asm"
-
-BOOT_MESSAGE:
-    db 'Loading Vermilion...', 0Dh, 0Ah, 0
 
 times 16384-($-$$) db 0
