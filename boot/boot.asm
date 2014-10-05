@@ -1,4 +1,5 @@
 [org 0x7c00]
+KERNEL_OFFSET equ 0x1000
 
 ; Save boot drive
 mov [BOOT_DRIVE], dl
@@ -11,18 +12,33 @@ mov sp, bp
 mov ax, 02h
 int 0x10
 
+; Load the kernel
+call load_kernel
+
 ; Enter 32-bit Protected Mode
 call enter_protected_mode
 
-%include "gdt.asm"
-%include "print.asm"
-%include "protected_mode.asm"
+%include "boot/disk.asm"
+%include "boot/gdt.asm"
+%include "boot/print.asm"
+%include "boot/protected_mode.asm"
+
+
+[bits 16]
+load_kernel:
+    mov bx, KERNEL_OFFSET
+    mov dh, 15
+    mov dl, [BOOT_DRIVE]
+    call disk_load
+    ret
 
 
 [bits 32]
-main:
+start_kernel:
     mov ebx, BOOT_MESSAGE
     call print_string
+
+    call KERNEL_OFFSET
 
     jmp $
 

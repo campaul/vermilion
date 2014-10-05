@@ -21,4 +21,4 @@ init_protected_mode:
     mov ebp, 0x90000
     mov esp, ebp
 
-    call main
+    call start_kernel
