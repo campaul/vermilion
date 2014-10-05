@@ -20,7 +20,6 @@ call enter_protected_mode
 
 %include "boot/disk.asm"
 %include "boot/gdt.asm"
-%include "boot/print.asm"
 %include "boot/protected_mode.asm"
 
 
@@ -35,9 +34,6 @@ load_kernel:
 
 [bits 32]
 start_kernel:
-    mov ebx, BOOT_MESSAGE
-    call print_string
-
     call KERNEL_OFFSET
 
     jmp $

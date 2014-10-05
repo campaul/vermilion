@@ -1,3 +1,5 @@
+#include "io.h" 
+
 void main() {
-    return;
+    kprint("Loading Vermillion");
 }
