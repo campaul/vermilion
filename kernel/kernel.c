@@ -4,7 +4,7 @@
 
 // TODO: Make this kmain
 void main() {
-    kprintln("Loading Vermillion");
+    kprintln("Loading Vermilion");
 
     // TODO: Move these somewhere else
     out_dx(0x20 , 0x11);
