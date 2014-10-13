@@ -34,13 +34,12 @@ load_kernel:
 
 [bits 32]
 start_kernel:
+    cli
     call KERNEL_OFFSET
-
-    jmp $
+    hlt
 
 
 BOOT_DRIVE: db 0
-BOOT_MESSAGE: db 'Loading Vermilion...', 0
 
 times 510-($-$$) db 0
 dw 0xaa55
