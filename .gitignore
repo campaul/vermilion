@@ -1,4 +1,5 @@
 /build
 *.bin
+*.iso
 *.o
 *.swp
