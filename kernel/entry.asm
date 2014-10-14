@@ -23,9 +23,9 @@ dd MULTIBOOT_VIDEO_DEPTH
  
 global kernel_entry
 kernel_entry:
-	mov esp, 0x9000
- 
-	extern kmain
-	call kmain
- 
-	hlt
+    mov esp, 0x9000
+
+    extern kmain
+    call kmain
+
+    hlt
