@@ -1,3 +1,5 @@
+#include "io.h"
+
 void irq_init() {
     outb(0x20 , 0x11);
     outb(0xA0 , 0x11);

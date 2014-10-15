@@ -1,3 +1,4 @@
+#include "../io.h"
 #include "../idt.h"
 #include "video.h"
 
@@ -20,5 +21,5 @@ void keyboard_handler() {
 
 void keyboard_init() {
     extern void _keyboard_handler();
-    idt_add(0x21, _keyboard_handler, 0x8e);
+    idt_add(0x21, (unsigned int)_keyboard_handler, 0x8e);
 }

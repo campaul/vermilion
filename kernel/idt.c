@@ -3,6 +3,7 @@
 #define IDT_SIZE 256
 
 extern unsigned long idt_pointer;
+extern void load_idt();
 
 struct idt_entry {
     unsigned short int address_low;

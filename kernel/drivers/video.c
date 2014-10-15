@@ -23,10 +23,6 @@ void kprint(const char *string) {
 }
 
 void kprintc(const char *string, int color) {
-    int relative;
-    int column;
-    int row;
-
     while(*string != 0) {
         *cursor++ = *string++;
         *cursor++ = color;
