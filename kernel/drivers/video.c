@@ -1,4 +1,4 @@
-#include "io.h"
+#include "video.h"
 
 int width = 80;
 int height = 10;
