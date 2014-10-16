@@ -1,3 +1,4 @@
+#include "../io.h"
 #include "video.h"
 
 int width = 80;
@@ -27,6 +28,16 @@ void kprintc(const char *string, int color) {
         *cursor++ = *string++;
         *cursor++ = color;
     }
+
+    update_cursor();
+}
+
+void update_cursor() {
+    unsigned int position = row() * width + column();
+    outb(0x3D4, 0x0F);
+    outb(0x3D5, (unsigned char)(position & 0xFF));
+    outb(0x3D4, 0x0E);
+    outb(0x3D5, (unsigned char )(position >> 8));
 }
 void kprintln(const char *string) {
     kprintlnc(string, 15);
@@ -34,7 +45,10 @@ void kprintln(const char *string) {
 
 void kprintlnc(const char *string, int color) {
     kprintc(string, color);
+    line_break();
+}
 
-    // Insert newline
+void line_break() {
     cursor += (width - column()) * 2;
+    update_cursor();
 }
