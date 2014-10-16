@@ -21,7 +21,7 @@ dd MULTIBOOT_VIDEO_MODE
 dd MULTIBOOT_VIDEO_WIDTH
 dd MULTIBOOT_VIDEO_HEIGHT
 dd MULTIBOOT_VIDEO_DEPTH
- 
+
 global kernel_entry
 kernel_entry:
     mov esp, 0x9000
