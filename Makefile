@@ -20,15 +20,12 @@ build/%.o: kernel/%.asm
 	mkdir -p build/drivers
 	nasm $^ -f elf32 -o $@
 
-iso/boot/vermilion.bin: ${KERNEL_OBJECTS}
-	ld --script linker.ld -o $@ $^
-
-vermilion.iso: iso/boot/vermilion.bin
-	grub-mkrescue -o vermilion.iso iso
+vermilion.bin: ${KERNEL_OBJECTS}
+	ld -m elf_i386 --script linker.ld -o $@ $^
 
 .PHONY: run
-run: vermilion.iso
-	qemu-system-i386 -cdrom vermilion.iso
+run: vermilion.bin
+	qemu-system-i386 -kernel vermilion.bin
 
 .PHONY: clean
 clean:
