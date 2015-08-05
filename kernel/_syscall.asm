@@ -9,3 +9,8 @@ global syscall
 syscall:
     int 0x80
     ret
+
+global halt
+halt:
+    hlt
+    ret

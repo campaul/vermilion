@@ -10,4 +10,3 @@ load_idt:
     lidt [idt_pointer]
     sti
     ret
-

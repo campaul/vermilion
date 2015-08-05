@@ -11,19 +11,19 @@ void keyboard_handler() {
     outb(0x20, 0x20);
 
 
-    while(in(KEYBOARD_STATUS_PORT) & 0x02) {
-    }
-        unsigned char data = in(KEYBOARD_DATA_PORT);
+    while(in(KEYBOARD_STATUS_PORT) & 0x02);
 
-        if (data > 0 && data < 128) {
-            char key = keyboard_map[data];
-            if (key == '\n') {
-                line_break();
-            } else {
-                char string[] = { key, 0 };
-                kprint(string);
-            }
+    unsigned char data = in(KEYBOARD_DATA_PORT);
+
+    if (data > 0 && data < 128) {
+        char key = keyboard_map[data];
+        if (key == '\n') {
+            line_break();
+        } else {
+            char string[] = { key, 0 };
+            kprint(string);
         }
+    }
 }
 
 void keyboard_init() {

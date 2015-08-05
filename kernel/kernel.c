@@ -4,6 +4,8 @@
 #include "irq.h"
 #include "syscall.h"
 
+extern void halt();
+
 void kmain() {
     clear_screen();
     kprintln("Loading Vermilion");
@@ -13,5 +15,7 @@ void kmain() {
     keyboard_init();
     irq_init();
 
-    while(1);
+    while(1) {
+        halt();
+    }
 }
