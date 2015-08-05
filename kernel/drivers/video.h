@@ -5,3 +5,4 @@ void kprintln(const char *string);
 void kprintlnc(const char *string, int color);
 void line_break();
 void update_cursor();
+void clear_screen();

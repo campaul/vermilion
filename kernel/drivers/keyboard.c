@@ -10,10 +10,11 @@
 void keyboard_handler() {
     outb(0x20, 0x20);
 
-    unsigned int status = in(KEYBOARD_STATUS_PORT);
-    unsigned char data = in(KEYBOARD_DATA_PORT);
 
-    if(status & 0x01) {
+    while(in(KEYBOARD_STATUS_PORT) & 0x02) {
+    }
+        unsigned char data = in(KEYBOARD_DATA_PORT);
+
         if (data > 0 && data < 128) {
             char key = keyboard_map[data];
             if (key == '\n') {
@@ -23,7 +24,6 @@ void keyboard_handler() {
                 kprint(string);
             }
         }
-    }
 }
 
 void keyboard_init() {

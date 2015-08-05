@@ -17,7 +17,7 @@ struct idt_entry idt[IDT_SIZE];
 
 void idt_add(int index, int address, int gate) {
     idt[index].address_low = address & 0xffff;
-    idt[index].selector = 0x10;
+    idt[index].selector = 0x08;
     idt[index].zero = 0;
     idt[index].gate = gate;
     idt[index].address_high = address >> 16;

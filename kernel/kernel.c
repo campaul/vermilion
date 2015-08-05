@@ -5,12 +5,13 @@
 #include "syscall.h"
 
 void kmain() {
+    clear_screen();
     kprintln("Loading Vermilion");
 
     idt_init();
     syscall_init();
     keyboard_init();
-    irq_init();   
+    irq_init();
 
     while(1);
 }

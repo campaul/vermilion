@@ -4,8 +4,8 @@
 int width = 80;
 int height = 10;
 
-volatile char *video_memory = (char*)0xb8000;
-volatile char *cursor = (char*)0xb8000;
+char *video_memory = (char*)0xb8000;
+char *cursor = (char*)0xb8000;
 
 int relative() {
     return (int)(cursor - video_memory) / 2;
@@ -51,4 +51,12 @@ void kprintlnc(const char *string, int color) {
 void line_break() {
     cursor += (width - column()) * 2;
     update_cursor();
+}
+
+void clear_screen() {
+    cursor = video_memory;
+    for (int i = 0; i < width * height; i++) {
+        kprint(" ");
+    }
+    cursor = video_memory;
 }
