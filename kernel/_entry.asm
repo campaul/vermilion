@@ -28,19 +28,33 @@ kernel_entry:
 
     mov eax, gdt_start
     mov [gdtr + 2], eax
-    mov ax, gdt_end - gdt_start - 1
+    mov ax, gdt_end - gdt_start
     mov [gdtr], ax
     lgdt [gdtr]
+    jmp 0x08:flush
+
+    flush:
+        mov ax, 0x10
+        mov ds, ax
+        mov es, ax
+        mov fs, ax
+        mov gs, ax
+        mov ss, ax
 
     extern kmain
     call kmain
 
     hlt
 
-    gdt_start:
-        dd 0x0
+    gdtr:
+        dw 0x0
         dd 0x0
 
+    gdt_start:
+        ; NULL Segment
+        dq 0x0
+
+        ; Code Segment
         dw 0xffff
         dw 0x0
         db 0x0
@@ -48,6 +62,7 @@ kernel_entry:
         db 11001111b
         db 0x0
 
+        ; Data Segment
         dw 0xffff
         dw 0x0
         db 0x0
@@ -55,7 +70,3 @@ kernel_entry:
         db 11001111b
         db 0x0
     gdt_end:
-
-    gdtr:
-        dw 0x0
-        db 0x0
