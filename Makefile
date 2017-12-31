@@ -13,7 +13,7 @@ all: vermilion.iso
 build/%.o: kernel/%.c
 	mkdir -p build
 	mkdir -p build/drivers
-	gcc -ffreestanding -std=c99 -m32 -Wall -Werror -c $< -o $@
+	gcc -fno-stack-protector -ffreestanding -std=c99 -m32 -Wall -Werror -c $< -o $@
 
 build/%.o: kernel/%.asm
 	mkdir -p build
